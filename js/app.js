@@ -23,15 +23,15 @@ function editGame(id) {
         .then(data => {
             if (data.success) {
                 // Llenar el formulario con los datos del juego
-                document.getElementById('name').value = data.game.name;
-                document.getElementById('playtime').value = data.game.playtime;
-                document.getElementById('min_age').value = data.game.min_age;
-                document.getElementById('min_players').value = data.game.min_players;
-                document.getElementById('max_players').value = data.game.max_players;
-                document.getElementById('description').value = data.game.description;
-                document.getElementById('sleeves').checked = data.game.sleeves == 1;
-                document.getElementById('premiun').checked = data.game.premiun == 1;
-                document.getElementById('N_A').checked = data.game.N_A == 1;
+                document.getElementsByName('name')[0].value = data.game.name;
+                document.getElementsByName('playtime')[0].value = data.game.playtime;
+                document.getElementsByName('min_age')[0].value = data.game.min_age;
+                document.getElementsByName('min_players')[0].value = data.game.min_players;
+                document.getElementsByName('max_players')[0].value = data.game.max_players;
+                document.getElementsByName('description')[0].value = data.game.description;
+                document.getElementsByName('sleeves')[0].checked = data.game.sleeves == 1;
+                document.getElementsByName('premiun')[0].checked = data.game.premiun == 1;
+                document.getElementsByName('N_A')[0].checked = data.game.N_A == 1;
                 // Configurar el formulario para actualizar
                 document.getElementById('gameForm').action = `controllers/updateGame.php?id=${id}`;
             } else {
