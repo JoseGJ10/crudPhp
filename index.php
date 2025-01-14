@@ -36,7 +36,7 @@
                         $message = addGame($_POST);
                     }
                 ?>
-                    <form method="post" action="">
+                    <form method="post" action="" id="gameForm">
                         <?php if ($message): ?>
                             <div class="alert alert-info text-center">
                                 <?= htmlspecialchars($message) ?>
