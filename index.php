@@ -93,6 +93,7 @@
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary" name="btnAddGame" id="btnAddGame">Add Game</button>
+                            <button type="submit" class="btn btn-primary" name="btnAddGame" id="btnAddGame">Edit Game</button>
                         </div>
                     </form>
                 </div>

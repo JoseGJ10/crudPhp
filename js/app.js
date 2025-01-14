@@ -23,6 +23,7 @@ function editGame(id) {
         .then(data => {
             if (data.success) {
                 // Llenar el formulario con los datos del juego
+                document.getElementsByName('id')[0].value = data.game.id;
                 document.getElementsByName('name')[0].value = data.game.name;
                 document.getElementsByName('playtime')[0].value = data.game.playtime;
                 document.getElementsByName('min_age')[0].value = data.game.min_age;
