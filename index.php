@@ -15,11 +15,18 @@
 </head>
 
 <body>
+    <?php
+
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");    
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+    ?>
+
     <div class="col">
         <h1 class="text-center">Menú Juegos de Mesa</h1>
     </div>
     <div class="container-fluid row">
-        <!-- Formulario Alta -->
+        <!-- Formulario Alta y edicion -->
         <div class="col-3 p-4">
             <div class="card">
                 <div class="card-header">
@@ -27,24 +34,36 @@
                 </div>
                 <div class="card-body">
                 <?php
-                    include_once("controllers/GameAddController.php");
 
+
+                    $isEditMode = isset($_GET['id']); // Si existe un parámetro id, estamos editando
+                    $id = $isEditMode ? htmlspecialchars($_GET['id']) : ""; // Captura el id si está en modo edición
+
+                    
                     $message = "";
-
+                    
                     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btnAddGame'])) {
+                        include_once("controllers/GameAddController.php");
                         // Llamar a la función del controlador para añadir el juego
                         $message = addGame($_POST);
                     }
+                    
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['btnEditGame'])) {
+                        // Llamar a la función del controlador para añadir el juego
+                        include_once("controllers/GameUpdateController.php");
+                        $message = editGame($_POST);
+                    }
+
                 ?>
                     <form method="post" action="" id="gameForm">
                         <?php if ($message): ?>
-                            <div class="alert alert-info text-center">
+                            <div class="alert alert-info alert-dismissible fade show js-alert" role="alert">
                                 <?= htmlspecialchars($message) ?>
                             </div>
                         <?php endif; ?>
                         <div class="input-group input-group-sm mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-sm">id_Game</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="id" disabled readonly>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="id" readonly>
                         </div>
                         <div class="input-group input-group-sm mb-3">
                             <span class="input-group-text" id="inputGroup-sizing-sm">Nombre</span>
@@ -91,9 +110,10 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="text-center">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="submit" class="btn btn-primary d-none" name="btnEditGame" id="btnEditGame">Edit Game</button>
+                            <button type="submit" class="btn btn-warning d-none" name="btnResetForm" id="btnResetForm">Reset Form</button>
                             <button type="submit" class="btn btn-primary" name="btnAddGame" id="btnAddGame">Add Game</button>
-                            <button type="submit" class="btn btn-primary" name="btnAddGame" id="btnAddGame">Edit Game</button>
                         </div>
                     </form>
                 </div>
